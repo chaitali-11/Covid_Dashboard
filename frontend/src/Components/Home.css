@@ -2,21 +2,27 @@
   border: 1px hidden rgb(165, 165, 234);
   border-radius: 18px;
   margin-left: 80px;
+  padding-left: 5px;
+  padding-right: 40px;
   margin-top: 50px;
   display: flex;
   align-items: center;
   width: 300px;
   height: 55px;
   background-color: rgb(239, 240, 246);
+  font-size: 18px;
+  color: grey;
 }
 
 .date {
   border: 1px hidden rgb(86, 86, 105);
-
   width: 400px;
   height: 27px;
   margin-left: 300px;
   display: flex;
   align-items: center;
   background-color: rgb(239, 240, 246);
+}
+.select {
+  font-size: 100;
 }

@@ -2,16 +2,29 @@ import React, { useState, useEffect } from "react";
 import "./Home.css";
 import Box from "@mui/material/Box";
 import SearchIcon from "@mui/icons-material/Search";
-import { Input, InputBase, Select } from "@mui/material";
-
+import axios from "axios";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { SingleInputDateRangeField } from "@mui/x-date-pickers-pro/SingleInputDateRangeField";
 import SimpleLineChart from "./Linechart";
 import BasicPie from "./Piechart";
-import NativeSelectDemo from "./Filter";
+import CountryDropdown from "./Country";
 
 const Home = () => {
+  const [input, setInput] = useState({});
+  const [totalcases, setTotalcases] = useState({});
+
+  const url = `https://disease.sh/v3/covid-19/historical/{country}?lastdays=1500`;
+  const searchCases = (event) => {
+    if (event.key === "Enter") {
+      axios.get(url).then((response) => {
+        setInput(response.input);
+        console.log(response.input);
+      });
+      setTotalcases("");
+    }
+  };
+
   return (
     <div>
       <Box
@@ -27,13 +40,8 @@ const Home = () => {
         fontWeight={"bold"}
       >
         Covid-19 and Population Dashboard
-        <div className="search">
-          <SearchIcon style={{ color: "darkgrey", marginLeft: 12 }} />
-          <NativeSelectDemo />
-          <InputBase
-            type="text"
-            style={{ width: 300, marginLeft: 10 }}
-          ></InputBase>
+        <div style={{ display: "flex" }}>
+          <CountryDropdown />
         </div>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <SingleInputDateRangeField
